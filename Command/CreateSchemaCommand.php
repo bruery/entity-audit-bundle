@@ -3,7 +3,11 @@
  * This file is part of the Bruery Platform.
  *
  * (c) Viktore Zara <viktore.zara@gmail.com>
+<<<<<<< HEAD
  * (c) Mell Zamora <mellzamora@outlook.com>
+=======
+ * (c) Mell Zamorw <mellzamora@outlook.com>
+>>>>>>> 0b04c6d05740dadde1a0b9626514bbf0ebbed3d5
  *
  * Copyright (c) 2016. For the full copyright and license information, please view the LICENSE  file that was distributed with this source code.
  */
