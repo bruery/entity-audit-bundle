@@ -53,22 +53,16 @@ class OverrideServiceCompilerPass implements CompilerPassInterface
             $definition = $container->getDefinition('simplethings_entityaudit.reader');
             $definition->setClass($container->getParameter('bruery.entity_audit.reader.class'));
 
+            $def = new Definition($container->getParameter('bruery.entity_audit.reader.class'),
+                                  array(new Reference($ems['source']), new Reference($ems['audit'])));
+
             // if SimpleThingsEntityAudit upgrades to version Symfony 2.8+
             if (method_exists($definition, 'setFactory') && ($definition->getFactoryMethod() === '' || $definition->getFactoryMethod() === null)) {
-                $def = new Definition('simplethings_entityaudit.reader', array(new Reference($ems['source']),
-                                                                               new Reference($ems['audit'])));
-                $def->setClass($container->getParameter('bruery.entity_audit.reader.class'));
-                $definition->setFactory(array($def, 'createAuditReader'));
+                $def->setFactory(array(new Reference('simplethings_entityaudit.manager'), 'createAuditReader'));
             } else {
-                $def = new Definition('simplethings_entityaudit.reader', array(new Reference($ems['source']),
-                                                                               new Reference($ems['audit'])));
-                $def->setClass($container->getParameter('bruery.entity_audit.reader.class'));
-
-                //$def->setFactoryClass($container->getParameter('bruery.entity_audit.manager.class'));
                 $def->setFactoryMethod('createAuditReader');
                 $def->setFactoryService('simplethings_entityaudit.manager');
             }
-
             $container->setDefinition('simplethings_entityaudit.reader', $def);
 
             #####################################
