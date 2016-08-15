@@ -37,6 +37,30 @@ class AuditReader extends BaseAuditReader
     protected $metadataFactory;
 
     /**
+     * Decides if audited ToMany collections are loaded
+     * @var bool
+     */
+    private $loadAuditedCollections = true;
+
+    /**
+     * Decides if audited ToOne collections are loaded
+     * @var bool
+     */
+    private $loadAuditedEntities = true;
+
+    /**
+     * Decides if native (not audited) ToMany collections are loaded
+     * @var bool
+     */
+    private $loadNativeCollections = true;
+
+    /**
+     * Decides if native (not audited) ToOne collections are loaded
+     * @var bool
+     */
+    private $loadNativeEntities = true;
+
+    /**
      * @param EntityManager $em
      * @param AuditConfiguration $config
      * @param MetadataFactory $factory
@@ -48,6 +72,70 @@ class AuditReader extends BaseAuditReader
         $this->config = $config;
         $this->metadataFactory = $factory;
         $this->platform = $this->sourceEm->getConnection()->getDatabasePlatform();
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isLoadAuditedCollections()
+    {
+        return $this->loadAuditedCollections;
+    }
+
+    /**
+     * @param boolean $loadAuditedCollections
+     */
+    public function setLoadAuditedCollections($loadAuditedCollections)
+    {
+        $this->loadAuditedCollections = $loadAuditedCollections;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isLoadAuditedEntities()
+    {
+        return $this->loadAuditedEntities;
+    }
+
+    /**
+     * @param boolean $loadAuditedEntities
+     */
+    public function setLoadAuditedEntities($loadAuditedEntities)
+    {
+        $this->loadAuditedEntities = $loadAuditedEntities;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isLoadNativeCollections()
+    {
+        return $this->loadNativeCollections;
+    }
+
+    /**
+     * @param boolean $loadNativeCollections
+     */
+    public function setLoadNativeCollections($loadNativeCollections)
+    {
+        $this->loadNativeCollections = $loadNativeCollections;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isLoadNativeEntities()
+    {
+        return $this->loadNativeEntities;
+    }
+
+    /**
+     * @param boolean $loadNativeEntities
+     */
+    public function setLoadNativeEntities($loadNativeEntities)
+    {
+        $this->loadNativeEntities = $loadNativeEntities;
     }
 
     /**
