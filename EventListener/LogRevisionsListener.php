@@ -153,7 +153,7 @@ class LogRevisionsListener implements EventSubscriber
         if ($this->revisionId === null) {
             $this->auditEm->getConnection()->insert($this->config->getRevisionTableName(), array(
                 'timestamp'     => date_create('now'),
-                'username'      => $this->config->getCurrentUsername(),
+                'username'      => $this->config->getCurrentUsername() ?: 'admin',
             ), array(
                 Type::DATETIME,
                 Type::STRING
